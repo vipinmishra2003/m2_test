@@ -16,16 +16,19 @@ const FacultySchema=new mongoose.Schema({
         },
         password:{
             type:String,
-            required:true
+            required:true,
+
         },
         role:{
             type:String,
             enum:['ADMIN','TEACHER','STUDENT'],
+            default:"STUDENT"
         },
         status: {
             type: "String",
             default: "ACTIVE",
-            enum: ["ACTIVE", "DELETE", "BLOCK"]
+            enum: ["ACTIVE", "DELETE", "BLOCK","PENDING","REJECTED"],
+
         },
         department:{
             type:String,
@@ -46,6 +49,7 @@ const FacultySchema=new mongoose.Schema({
         },
         dialing_code:{
             type:Number,
+            default:+91
         },
         phone:{
             type:Number,
@@ -53,6 +57,7 @@ const FacultySchema=new mongoose.Schema({
         },
         qr:{
             type:String,
+            default:null
         }
         
 },{timestamps:true});

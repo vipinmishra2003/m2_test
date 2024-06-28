@@ -1,11 +1,19 @@
 const express = require('express');
-const router = express.Router();
-const {createfaculty,getfaculty,getStudentById,getFacultyById,Adminlogin}=require('../Controllers/AdminController');
+const adminRouter = express.Router();
+const Admincontroller=require('../Controllers/AdminController');
+const helper=require("../Helper/common");
+const middleware=require("../middlewares/Auth")
 
-router.post('/createfaculty',createfaculty);
-router.get('/getfaculty',getfaculty);
-router.get('/getStudentById',getStudentById);
-router.get('/getFacultyById',getFacultyById);
-router.post('/Adminlogin',Adminlogin);
-router.post('/createDepartment',createDepartment);
-router.post('/createCourse',createCourse);
+
+
+adminRouter.post('/createfaculty',Admincontroller.createfaculty);
+adminRouter.get('/getfaculty',Admincontroller.getfaculty);
+
+adminRouter.get('/getStudentById',Admincontroller.getStudentById);
+adminRouter.get('/getFacultyById',Admincontroller.getFacultyByDepartment);
+
+adminRouter.post('/Adminlogin', middleware.VerifyAdmin,Admincontroller.Adminlogin);
+adminRouter.post('/createDepartment',Admincontroller.createDepartment);
+adminRouter.post('/createCourse',Admincontroller.createCourse);
+
+module.exports=adminRouter;

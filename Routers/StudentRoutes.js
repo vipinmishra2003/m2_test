@@ -1,9 +1,12 @@
 const express=require('express');
-const router=express.Router();
+const studentRouter=express.Router();
 const studentController=require('../Controllers/Studentcontroller');
 
 
 
 
-router.post('/signup',studentController.Signup); 
-router.get('/login',studentController.Login);
+studentRouter.post('/signup',studentController.Signup); 
+studentRouter.get('/login',studentController.Login);
+studentRouter.post('/adminsionrequest',studentController.RequesttoAdmision)
+
+module.exports=studentRouter;
