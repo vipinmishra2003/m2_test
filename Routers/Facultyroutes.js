@@ -1,13 +1,20 @@
-const facultycontroller = require('../Controllers/Facultycontroller');
-const express = require('express');
+const facultycontroller = require("../Controllers/Facultycontroller");
+const express = require("express");
 const facultyRouter = express.Router();
-const middleware=require("../middlewares/Auth")
+const middleware = require("../middlewares/Auth");
 
+facultyRouter.post("/login", middleware.verifyFaculty, facultycontroller.login);
 
+facultyRouter.put(
+  "/ApproveStudentAdmision",
+  middleware.verifyFaculty,
+  facultycontroller.ApproveStudentAdmision
+);
 
-facultyRouter.post('/login', middleware.verifyFaculty,facultycontroller.login);
-facultyRouter.put('/ApproveStudentAdmision', facultycontroller.ApproveStudentAdmision);
-facultyRouter.put("/updateprofile",facultycontroller.updateProfile)
+facultyRouter.put(
+  "/updateprofile",
+  middleware.verifyFaculty,
+  facultycontroller.updateProfile
+);
 
-module.exports=facultyRouter;
-
+module.exports = facultyRouter;

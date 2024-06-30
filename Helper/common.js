@@ -43,4 +43,14 @@ module.exports = {
       console.error("Error generating QR code:", err);
     }
   },
+  pagination: async function (page, pageSize, user) {
+    try {
+      const skip = (page - 1) * pageSize;
+      const users = await user.find().skip(skip).limit(pageSize);
+
+      console.log("Paginated users:", users);
+    } catch (err) {
+      console.error("Error fetching paginated users:", err);
+    }
+  },
 };

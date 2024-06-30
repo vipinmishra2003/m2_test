@@ -2,6 +2,7 @@ const express = require("express");
 const studentRouter = express.Router();
 const middleware = require("../middlewares/Auth");
 const studentController = require("../Controllers/Studentcontroller");
+const Studentcontroller = require("../Controllers/Studentcontroller");
 
 // routes to create new user
 studentRouter.post(
@@ -12,6 +13,7 @@ studentRouter.post(
 
 //routes for login
 studentRouter.get("/login", middleware.verifyStudent, studentController.Login);
+
 studentRouter.post(
   "/adminsionrequest",
   middleware.verifyStudent,
@@ -46,7 +48,15 @@ studentRouter.put(
   studentController.Deleteprofile
 );
 
-//rputes to create qr code
+//routs to check the status of the application
+
+studentRouter.post(
+  "/checkstatus",
+  middleware.verifyStudent,
+  Studentcontroller.checkstatusApplication
+);
+
+//routes to create qr code
 studentRouter.post(
   "/qrgenerate",
   middleware.verifyStudent,

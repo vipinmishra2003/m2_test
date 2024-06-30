@@ -120,7 +120,7 @@ module.exports = {
         res.status(300).json({ message: "user with email not found" });
       }
       if (!user.role == "STUDENT") {
-        res.status(500).json({ message: "This routre is not for student" });
+        res.status(500).json({ message: "This router is not for student" });
       }
       if (existing) {
         const success = await bcrypt.compareSync(existing.password, password);
