@@ -6,49 +6,49 @@ const facultyRouter = require("./Facultyroutes");
 
 adminRouter.post(
   "/createfaculty",
-  middleware.VerifyAdmin,
+  middleware.verifyAdmin,
   Admincontroller.createfaculty
 );
 
 adminRouter.get(
   "/getfaculty",
-  middleware.VerifyAdmin,
+  middleware.verifyAdmin,
   Admincontroller.getFaculty
 );
 
 adminRouter.get(
   "/getStudentById",
-  middleware.VerifyAdmin,
+  middleware.verifyAdmin,
   Admincontroller.getStudentById
 );
 
 adminRouter.get(
   "/getFacultyById",
-  middleware.VerifyAdmin,
+  middleware.verifyAdmin,
   Admincontroller.getFacultyByDepartment
 );
 
 facultyRouter.put(
   "/updatestatus",
-  middleware.VerifyAdmin,
+  middleware.verifyAdmin,
   Admincontroller.ApproveAdmision
 );
 
 adminRouter.post(
   "/Adminlogin",
-  middleware.VerifyAdmin,
+  middleware.verifyAdmin,
   Admincontroller.Adminlogin
 );
 
 adminRouter.post(
   "/createDepartment",
-  middleware.VerifyAdmin,
+  middleware.verifyAdmin,
   Admincontroller.createDepartment
 );
 
 adminRouter.post(
   "/createCourse",
-  middleware.VerifyAdmin,
+  middleware.verifyAdmin,
   Admincontroller.createCourse
 );
 
