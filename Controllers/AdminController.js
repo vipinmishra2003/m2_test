@@ -1,7 +1,7 @@
 const faculty = require("../Models/FacultySchema");
-const CourseSchema = require("../Models/CourseSchema");
+// const CourseSchema = require("../Models/CourseSchema");
 const mongoosePaginate = require("mongoose-paginate-v2");
-faculty.plugin(mongoosePaginate);
+// faculty.plugin(mongoosePaginate);
 // const { student, faculty } = require("../Models/DepartmentSchema");
 const helper = require("../Helper/common");
 module.exports = {
@@ -151,6 +151,30 @@ module.exports = {
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Server error" });
+    }
+  },
+  ApproveAdmision: async (req, res) => {
+    const { email, password } = req.body;
+    try {
+      if (!email) {
+        res.status(300).json({ message: "email is required field" });
+      }
+      const existing = await faculty.findOne({
+        email: email,
+        password: password,
+      });
+      if (existing && existing.status == "PENDING") {
+        const change = await existing.findOneAndUpdate(
+          { email: email },
+          { status: "Approoved" }
+        );
+        res
+          .status(200)
+          .json({ message: "Admimison has been approved by admin", change });
+      }
+      res.send({ message: "Your application is not approved by till now" });
+    } catch (error) {
+      res.status(500).json({ message: "There is some error ", error });
     }
   },
 

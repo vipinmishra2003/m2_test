@@ -2,6 +2,7 @@ const express = require("express");
 const adminRouter = express.Router();
 const Admincontroller = require("../Controllers/AdminController");
 const middleware = require("../middlewares/Auth");
+const facultyRouter = require("./Facultyroutes");
 
 adminRouter.post(
   "/createfaculty",
@@ -25,6 +26,12 @@ adminRouter.get(
   "/getFacultyById",
   middleware.VerifyAdmin,
   Admincontroller.getfacultyByDepartment
+);
+
+facultyRouter.put(
+  "/updatestatus",
+  middleware.VerifyAdmin,
+  Admincontroller.ApproveAdmision
 );
 
 adminRouter.post(

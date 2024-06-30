@@ -33,17 +33,26 @@ module.exports = {
     const { _id } = req.body;
     try {
       const existing = await faculty.findOne({
-        $and: [{ _id: _id }, { role: "FACULTY" }],
+        $and: [{ _id: _id }, { role: "STUDENT" }],
       });
-      if (existing) {
-        return res
-          .status(200)
-          .json("Faculty is Authorized to Approve Student Admission");
-      } else {
-        return res.status(400).json({ message: "Invalid Credentials" });
+      if (!existing) {
+        res.status(300).json({ message: "user with this mail not exist" });
       }
+      if (existing && existing.status == "PENDING") {
+        const approve = await existing.findOneAndUpdate(
+          { _id: _id },
+          { status: "Approved" }
+        );
+        res
+          .status(200)
+          .json({
+            message: "Status of your application has been approved by faculty",
+            approve,
+          });
+      }
+      res.status(300).json({ message: "Your status is pendinf still" });
     } catch (error) {
-      res.status(500).json({ message: "Internal Server Error" });
+      res.status(500).json({ message: "Internal Server Error", error });
     }
   },
 
