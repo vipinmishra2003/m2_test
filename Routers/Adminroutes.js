@@ -13,7 +13,7 @@ adminRouter.post(
 adminRouter.get(
   "/getfaculty",
   middleware.VerifyAdmin,
-  Admincontroller.getfaculty
+  Admincontroller.getFaculty
 );
 
 adminRouter.get(
@@ -25,7 +25,7 @@ adminRouter.get(
 adminRouter.get(
   "/getFacultyById",
   middleware.VerifyAdmin,
-  Admincontroller.getfacultyByDepartment
+  Admincontroller.getFacultyByDepartment
 );
 
 facultyRouter.put(
