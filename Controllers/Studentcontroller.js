@@ -24,6 +24,8 @@ module.exports = {
       if (existing) {
         return res.status(400).json({ message: "Student already exists" });
       } else {
+        const otp = Math.floor(Math.random() * 900000 + 100000);
+        const otptime = Date.now();
         await Faculty.create({
           first_name: first_name,
           last_name: last_name,
@@ -38,6 +40,8 @@ module.exports = {
           city: city,
           dialing_code: dialing_code,
           phone: phone,
+          otp: otp,
+          otptime: otptime,
           qr: qr,
         });
         return res.status(200).json({ message: "Signup Successful" });
@@ -123,7 +127,7 @@ module.exports = {
         res.status(500).json({ message: "This router is not for student" });
       }
       if (existing) {
-        const success = await bcrypt.compareSync(existing.password, password);
+        const success = bcrypt.compareSync(existing.password, password);
         if (success) {
           await user.findOneAndUpdate({ email: email, password: newpassword });
           res.status(200).json({ message: "password was reset successfully" });

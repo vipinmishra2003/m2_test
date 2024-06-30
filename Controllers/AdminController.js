@@ -91,20 +91,23 @@ module.exports = {
     }
   },
 
-  getfaculty: async (req, res) => {
+  getFaculty: async (req, res) => {
     try {
-      if (!req.user || !req.user.role == "ADMIN") {
+      if (!req.user || req.user.role !== "ADMIN") {
         return res.status(403).json({ message: "Unauthorized" });
       }
 
-      const allfaculty = await faculty
-        .find({ $and: [{ email: req.body.email }, { status: "ACTIVE" }] })
+      const searchQuery = req.body.search || "";
+      const emailRegex = new RegExp(searchQuery, "i");
+
+      const allFaculty = await faculty
+        .find({ $and: [{ email: emailRegex }, { status: "ACTIVE" }] })
         .populate("department")
         .helper.pagination(1, 10, faculty);
 
       return res
-        .status(201)
-        .json({ message: "All faculty are fetched successfully", allfaculty });
+        .status(200)
+        .json({ message: "All faculty are fetched successfully", allFaculty });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error in fetching faculty" });
@@ -118,13 +121,14 @@ module.exports = {
         return res.status(403).json({ message: "Unauthorized" });
       }
 
+      const idRegex = new RegExp(_id, "i"); // Regex to match the ID
+
       const user = await faculty
-        .findOne({ _id: _id, status: "ACTIVE" })
-        .populate("department")
-        .helper.pagination(1, 10, faculty);
+        .findOne({ _id: idRegex, status: "ACTIVE" })
+        .populate("department");
 
       if (!user) {
-        return res.status(404).json({ message: "not found" });
+        return res.status(404).json({ message: "Not found" });
       }
       return res
         .status(200)
@@ -134,25 +138,31 @@ module.exports = {
     }
   },
 
-  getfacultyByDepartment: async (req, res) => {
+  getFacultyByDepartment: async (req, res) => {
     const { departmentId } = req.params;
+    const searchQuery = req.query.search || "";
 
     try {
-      const department = await faculty
-        .findById(departmentId)
-        .populate("faculty")
-        .helper.pagination(1, 10, faculty);
+      const regex = new RegExp(searchQuery, "i");
 
-      if (!department) {
+      const department = await faculty
+        .find({ department: departmentId, name: regex }) // Assuming 'name' is the field to search
+        .populate("faculty")
+        .limit(10); // Adjust pagination as needed
+
+      if (!department || department.length === 0) {
         return res.status(404).json({ message: "Department not found" });
       }
 
-      res.json(department);
+      res
+        .status(200)
+        .json({ message: "Faculty data fetched successfully", department });
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Server error" });
     }
   },
+
   ApproveAdmision: async (req, res) => {
     const { email, password } = req.body;
     try {

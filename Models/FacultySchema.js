@@ -52,6 +52,12 @@ const FacultySchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    otp: {
+      type: Number,
+    },
+    otptime: {
+      type: Number,
+    },
     qr: {
       type: String,
       default: null,
