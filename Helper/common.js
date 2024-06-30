@@ -1,6 +1,5 @@
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-// const Twilio = require('twilio');
 module.exports = {
   sendPassword: async (email, subject, text) => {
     try {
