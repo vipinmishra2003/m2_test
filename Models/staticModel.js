@@ -37,19 +37,19 @@ async function checkAndCreateStaticContent() {
           type: "T&C",
           title: "Terms and Conditions",
           description:
-            "A terms and conditions agreement is the agreement that includes the terms, rules, and guidelines of acceptable behavior and other useful sections to which users must agree in order to use or access your website and mobile app.",
+            "A terms and conditions agreement is rule and regulations of the company",
         },
         {
           type: "AboutUs",
           title: "About Us",
           description:
-            "An about us page helps your company make a good first impression and is critical for building customer trust and loyalty.",
+            "An about us page helps your company to show infomation about the company",
         },
         {
           type: "ContactUs",
           title: "Contact Us",
           description:
-            "They slap an email address, phone, and location on a plain background and call it a day.",
+            "The contact details of the company like phone no,email.",
         },
       ];
 

@@ -2,8 +2,16 @@ const express = require("express");
 const studentRouter = express.Router();
 const middleware = require("../middlewares/Auth");
 const studentController = require("../Controllers/Studentcontroller");
-const Studentcontroller = require("../Controllers/Studentcontroller");
+const FaqController = require("../Controllers/FaqController");
+const handleOtp  = require('../Controllers/verifyOtpController');
 
+
+
+
+
+studentRouter.post('/verify-otp', handleOtp.VerifyOTP)
+
+studentRouter.post('/resend-otp', handleOtp.resend)
 // routes to create new user
 studentRouter.post(
   "/signup",
@@ -53,7 +61,7 @@ studentRouter.put(
 studentRouter.post(
   "/checkstatus",
   middleware.verifyStudent,
-  Studentcontroller.checkstatusApplication
+  studentController.checkstatusApplication
 );
 
 //routes to create qr code
@@ -62,4 +70,7 @@ studentRouter.post(
   middleware.verifyStudent,
   studentController.Qrgenerator
 );
+
+studentRouter.post("/addfaq",middleware.verifyStudent,FaqController.addfaq)
+studentRouter.get("/getfaq",middleware.verifyStudent,FaqController.Getfaq)
 module.exports = studentRouter;

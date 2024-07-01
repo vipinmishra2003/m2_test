@@ -195,7 +195,10 @@ module.exports = {
       }
       if (existing) {
         await helper.generateQRCode(email, password);
+        req.status(200).json({message:"QR code successfully generated"})
       }
-    } catch (error) {}
+    } catch (error) {
+      res.status(500).json({message:"internal error",error: error})
+    }
   },
 };

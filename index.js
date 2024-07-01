@@ -1,10 +1,9 @@
-const express = require("express");
+const express =require("express")
 const connectDB = require("./Connection/connection");
 const app = express();
 const Adminrotes = require("./Routers/Adminroutes");
 const Facultyroutes = require("./Routers/Facultyroutes");
 const Studentroutes = require("./Routers/StudentRoutes");
-const staticRouter = require("./Routers/staticRouter");
 const bodyParser = require("body-parser");
 // const PORT=process.env.PORT || 4000;
 
@@ -24,7 +23,7 @@ connectDB();
 app.use("/admin", Adminrotes);
 app.use("/faculty", Facultyroutes);
 app.use("/student", Studentroutes);
-app.use("/static", staticRouter);
+
 
 //server uses
 app.listen(process.env.PORT, (req, res) => {

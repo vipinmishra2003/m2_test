@@ -25,4 +25,4 @@ const facultySchema = new mongoose.Schema({
 const faculty = mongoose.model("faculty", facultySchema);
 const student = mongoose.model("student", studentSchema);
 
-module.exports = { faculty, student };
+module.exports = { faculty, student};

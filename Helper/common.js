@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+const qr=require("qrcode")
 module.exports = {
   sendPassword: async (email, subject, text) => {
     try {
@@ -37,7 +38,7 @@ module.exports = {
       const text = `Email: ${email}\nPassword: ${password}`;
       const qrImage = await qr.toDataURL(text);
       // Generate QR code
-      res.status(200).json("QR Code generated successfully.", qrImage);
+      return qrImage;
     } catch (err) {
       console.error("Error generating QR code:", err);
     }
