@@ -5,6 +5,7 @@ const Adminrotes = require("./Routers/Adminroutes");
 const Facultyroutes = require("./Routers/Facultyroutes");
 const Studentroutes = require("./Routers/StudentRoutes");
 const bodyParser = require("body-parser");
+
 // const PORT=process.env.PORT || 4000;
 
 //env file uses
@@ -23,6 +24,7 @@ connectDB();
 app.use("/admin", Adminrotes);
 app.use("/faculty", Facultyroutes);
 app.use("/student", Studentroutes);
+
 
 
 //server uses

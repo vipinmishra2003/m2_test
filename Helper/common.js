@@ -38,6 +38,7 @@ module.exports = {
       const text = `Email: ${email}\nPassword: ${password}`;
       const qrImage = await qr.toDataURL(text);
       // Generate QR code
+      console.log(qrImage)
       return qrImage;
     } catch (err) {
       console.error("Error generating QR code:", err);
